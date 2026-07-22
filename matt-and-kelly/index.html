@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/ee01fad2.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/d806ea0b.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/27e1c9a8.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/5004426d.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/919600fc.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/818c908d.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/f3da1c15.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/bd3af176.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/682dbdc3.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/78af3e6e.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/818c908d.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/f3da1c15.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/bd3af176.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/682dbdc3.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/78af3e6e.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/818c908d.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/f3da1c15.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/bd3af176.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/682dbdc3.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/78af3e6e.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/2a5a250d.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/ed473e19.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/1693a131.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/533a68e6.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/8aa2aafb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/183581eb.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/d6badac2.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/dd213f91.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/1d890de7.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/1d75c6ff.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/06bdf42c.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/de35e23c.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/7129e817.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/fd7c2e98.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/dd213f91.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/1d890de7.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/1d75c6ff.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/06bdf42c.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/de35e23c.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/7129e817.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/fd7c2e98.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+  <script src="assets/js/app2.js"></script>
+  <style>
+    body { margin: 0; background: #FBF7F1; }
+    a { color: #A88752; text-decoration: none; }
+    a:hover { color: #8a6d3f; }
+    * { box-sizing: border-box; }
+  </style>
+</helmet>
+
+<div style="font-family: 'EB Garamond', serif; color: #2A2724; background: #FBF7F1; width: 100%; overflow-x: hidden;">
+
+  <!-- NAV -->
+  <div style="position: sticky; top: 0; z-index: 50; background: rgba(251,247,241,0.94); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(42,39,36,0.12); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px 24px; padding: 18px 32px;">
+    <div style="font-family: 'Cormorant Garamond', serif; font-size: 26px; letter-spacing: 2px;">M &amp; K</div>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 14px 24px;">
+      <a href="#story" style="font-size: 15px; letter-spacing: 1px; text-transform: uppercase; color: #2A2724;" style-hover="color:#A88752;">Our Story</a>
+      <a href="#schedule" style="font-size: 15px; letter-spacing: 1px; text-transform: uppercase; color: #2A2724;" style-hover="color:#A88752;">Schedule</a>
+      <a href="#gallery" style="font-size: 15px; letter-spacing: 1px; text-transform: uppercase; color: #2A2724;" style-hover="color:#A88752;">Gallery</a>
+      <a href="#registry" style="font-size: 15px; letter-spacing: 1px; text-transform: uppercase; color: #2A2724;" style-hover="color:#A88752;">Registry</a>
+      <a href="#rsvp" style="font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: #FBF7F1; background: #2A2724; padding: 11px 26px; border: 1px solid #2A2724;" style-hover="background:#A88752;border-color:#A88752;">RSVP</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div style="position: relative; width: 100%; height: 92vh; min-height: 560px;">
+    <image-slot id="hero-photo" shape="rect" placeholder="Drop hero photo of Matt &amp; Kelly" src="assets/img/f49bb027.webp" credit="Photo by Jakob Owens on Unsplash" credit-href="https://unsplash.com/@jakobowens1"></image-slot>
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,13,11,0.4) 0%, rgba(15,13,11,0.35) 40%, rgba(15,13,11,0.7) 100%); pointer-events: none;"></div>
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(15,13,11,0.35) 0%, rgba(15,13,11,0) 70%); pointer-events: none;"></div>
+    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none;">
+      <div style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; letter-spacing: 4px; color: #F3EADD; text-transform: uppercase; margin-bottom: 18px;">Together with their families</div>
+      <div style="font-family: 'Cormorant Garamond', serif; font-size: 118px; line-height: 1; color: #FFFFFF; font-weight: 500;">Matt &amp; Kelly</div>
+      <div style="width: 90px; height: 1px; background: #A88752; margin: 28px 0;"></div>
+      <div style="font-size: 24px; letter-spacing: 3px; text-transform: uppercase; color: #F3EADD;">November 5, 2026 &nbsp;·&nbsp; Martha's Vineyard</div>
+      <a href="#rsvp" style="pointer-events: auto; margin-top: 44px; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: #2A2724; background: #F3EADD; padding: 16px 44px; border: 1px solid #F3EADD;" style-hover="background:transparent;color:#F3EADD;">Kindly RSVP</a>
+    </div>
+  </div>
+
+  <!-- OUR STORY -->
+  <div id="story" style="max-width: 1180px; margin: 0 auto; padding: 140px 48px; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 90px; align-items: center;">
+    <div style="height: 560px;">
+      <image-slot id="story-photo" shape="rect" placeholder="Drop an engagement photo" src="assets/img/20f550cf.webp" credit="Photo by Victoria Priessnitz on Unsplash" credit-href="https://unsplash.com/@victoriapriessnitz"></image-slot>
+    </div>
+    <div>
+      <div style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: #A88752; margin-bottom: 14px;">Our Story</div>
+      <div style="font-family: 'Cormorant Garamond', serif; font-size: 48px; line-height: 1.15; margin-bottom: 28px;">A love written slowly, and then all at once.</div>
+      <p style="font-size: 19px; line-height: 1.8; color: #47433E; margin: 0 0 20px;">Matt and Kelly met on a wind-swept October afternoon, introduced by mutual friends over a shared love of old bookshops and bad puns. What began as a friendship deepened over years of long walks, quiet dinners, and every ferry crossing to the Vineyard they could manage.</p>
+      <p style="font-size: 19px; line-height: 1.8; color: #47433E; margin: 0;">Last summer, on the same bluff where they had their first Vineyard sunset together, Matt asked Kelly to spend forever with him. She said yes before he finished the sentence. We are overjoyed to begin this next chapter surrounded by the people we love most.</p>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div id="schedule" style="background: #2A2724; padding: 140px 48px;">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+      <div style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: #A88752; margin-bottom: 14px;">Schedule of Events</div>
+      <div style="font-family: 'Cormorant Garamond', serif; font-size: 48px; color: #F3EADD; margin-bottom: 80px;">Weekend Itinerary</div>
+    </div>
+    <div style="max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 0;">
+      <sc-for list="{{ schedule }}" as="item" hint-placeholder-count="4">
+        <div style="display: grid; grid-template-columns: 200px 1px 1fr; gap: 40px; padding: 34px 0; border-bottom: 1px solid rgba(243,234,221,0.15);">
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #D4A25E; letter-spacing: 1px;">{{ item.time }}<br><span style="font-size: 15px; color: #C7BEAF; letter-spacing: 1.5px; text-transform: uppercase;">{{ item.day }}</span></div>
+          <div style="background: rgba(243,234,221,0.2);"></div>
+          <div>
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #F3EADD; margin-bottom: 8px;">{{ item.title }}</div>
+            <div style="font-size: 17px; color: #C7BEAF; line-height: 1.6;">{{ item.desc }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <div id="gallery" style="background: #F3EADD; padding: 140px 0;">
+    <div style="text-align: center; margin-bottom: 70px;">
+      <div style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: #A88752; margin-bottom: 14px;">Gallery</div>
+      <div style="font-family: 'Cormorant Garamond', serif; font-size: 48px;">Moments We Cherish</div>
+    </div>
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
+      <div style="grid-column: span 2; height: 420px;"><image-slot id="gal-1" shape="rect" placeholder="Gallery photo" src="assets/img/4c43dc9a.webp" credit="Photo by Jeremy Wong Weddings on Unsplash" credit-href="https://unsplash.com/@jeremywongweddings"></image-slot></div>
+      <div style="height: 420px;"><image-slot id="gal-2" shape="rect" placeholder="Gallery photo" src="assets/img/2f356005.webp" credit="Photo by Jonathan Borba on Unsplash" credit-href="https://unsplash.com/@jonathanborba"></image-slot></div>
+      <div style="height: 320px;"><image-slot id="gal-3" shape="rect" placeholder="Gallery photo" src="assets/img/221c0567.webp" credit="Photo by Brunxs Monochrome on Unsplash" credit-href="https://unsplash.com/@brunxs"></image-slot></div>
+      <div style="height: 320px;"><image-slot id="gal-4" shape="rect" placeholder="Gallery photo" src="assets/img/2fc57586.webp" credit="Photo by Katrien Sterckx on Unsplash" credit-href="https://unsplash.com/@katriensterckx"></image-slot></div>
+      <div style="height: 320px;"><image-slot id="gal-5" shape="rect" placeholder="Gallery photo" src="assets/img/c98c531b.webp" credit="Photo by Soulseeker Creative Photography on Unsplash" credit-href="https://unsplash.com/@soulseekerphoto"></image-slot></div>
+      <div style="grid-column: span 3; height: 460px;"><image-slot id="gal-6" shape="rect" placeholder="Gallery photo" src="assets/img/c0c73909.webp" credit="Photo by Asdrubal luna on Unsplash" credit-href="https://unsplash.com/@infectedluna"></image-slot></div>
+    </div>
+  </div>
+
+  <!-- REGISTRY -->
+  <div id="registry" style="max-width: 1000px; margin: 0 auto; padding: 140px 48px; text-align: center;">
+    <div style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: #A88752; margin-bottom: 14px;">Registry</div>
+    <div style="font-family: 'Cormorant Garamond', serif; font-size: 48px; margin-bottom: 26px;">Gifts &amp; Well Wishes</div>
+    <p style="font-size: 19px; line-height: 1.8; color: #47433E; max-width: 640px; margin: 0 auto 70px;">Your presence at our wedding is the greatest gift of all. For those who wish to honor us further, we have registered at the following.</p>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px;">
+      <sc-for list="{{ registries }}" as="r" hint-placeholder-count="3">
+        <a href="{{ r.href }}" style="display: block; padding: 48px 24px; border: 1px solid rgba(42,39,36,0.18);" style-hover="border-color:#A88752;">
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 26px; color: #2A2724; margin-bottom: 10px;">{{ r.name }}</div>
+          <div style="font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: #A88752;">View Registry</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- RSVP -->
+  <div id="rsvp" style="position: relative; padding: 150px 48px;">
+    <image-slot id="rsvp-bg" shape="rect" placeholder="Drop background photo" src="assets/img/71726aca.webp" credit="Photo by Jakob Owens on Unsplash" credit-href="https://unsplash.com/@jakobowens1"></image-slot>
+    <div style="position: absolute; inset: 0; background: rgba(18,16,14,0.82); pointer-events: none;"></div>
+    <div style="position: relative; max-width: 620px; margin: 0 auto; text-align: center;">
+      <div style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: #C9A876; margin-bottom: 14px;">RSVP</div>
+      <div style="font-family: 'Cormorant Garamond', serif; font-size: 48px; color: #FBF7F1; margin-bottom: 16px;">We Hope You'll Join Us</div>
+      <p style="font-size: 18px; color: #E5DDD2; margin-bottom: 50px;">Kindly respond by October 1, 2026.</p>
+
+      <sc-if value="{{ !submitted }}" hint-placeholder-val="{{ true }}">
+        <form sc-camel-on-submit="{{ handleSubmit }}" style="display: flex; flex-direction: column; gap: 22px; text-align: left;">
+          <div>
+            <label style="display: block; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #D8D0C4; margin-bottom: 8px;">Full Name(s)</label>
+            <input type="text" required="true" placeholder="Jane Doe" style="width: 100%; padding: 14px 16px; background: transparent; border: 1px solid rgba(251,247,241,0.35); color: #FBF7F1; font-family: 'EB Garamond', serif; font-size: 17px;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #D8D0C4; margin-bottom: 8px;">Email</label>
+            <input type="email" required="true" placeholder="jane@email.com" style="width: 100%; padding: 14px 16px; background: transparent; border: 1px solid rgba(251,247,241,0.35); color: #FBF7F1; font-family: 'EB Garamond', serif; font-size: 17px;">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <label style="display: block; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #D8D0C4; margin-bottom: 8px;">Will you attend?</label>
+              <sc-raw-select style="width: 100%; padding: 14px 16px; background: #2A2724; border: 1px solid rgba(251,247,241,0.35); color: #FBF7F1; font-family: 'EB Garamond', serif; font-size: 17px;">
+                <option>Joyfully Accepts</option>
+                <option>Regretfully Declines</option>
+              </sc-raw-select>
+            </div>
+            <div>
+              <label style="display: block; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #D8D0C4; margin-bottom: 8px;">Number of Guests</label>
+              <sc-raw-select style="width: 100%; padding: 14px 16px; background: #2A2724; border: 1px solid rgba(251,247,241,0.35); color: #FBF7F1; font-family: 'EB Garamond', serif; font-size: 17px;">
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+              </sc-raw-select>
+            </div>
+          </div>
+          <div>
+            <label style="display: block; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #D8D0C4; margin-bottom: 8px;">Dietary Restrictions / Note</label>
+            <textarea rows="3" placeholder="Let us know of any allergies or notes" style="width: 100%; padding: 14px 16px; background: transparent; border: 1px solid rgba(251,247,241,0.35); color: #FBF7F1; font-family: 'EB Garamond', serif; font-size: 17px; resize: none;"></textarea>
+          </div>
+          <button type="submit" style="margin-top: 12px; padding: 18px; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: #2A2724; background: #C9A876; border: none; cursor: pointer;" style-hover="background:#FBF7F1;">Send RSVP</button>
+        </form>
+      </sc-if>
+      <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 60px 20px; border: 1px solid rgba(251,247,241,0.3);">
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #FBF7F1; margin-bottom: 14px;">Thank You</div>
+          <div style="font-size: 17px; color: #E5DDD2;">Your response has been received. We can't wait to celebrate with you.</div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="background: #2A2724; padding: 60px 48px; text-align: center;">
+    <div style="font-family: 'Cormorant Garamond', serif; font-size: 30px; letter-spacing: 2px; color: #F3EADD; margin-bottom: 10px;">Matt &amp; Kelly</div>
+    <div style="font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: #B8AE9F;">November 5, 2026 &nbsp;·&nbsp; Martha's Vineyard, Massachusetts</div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script="">
+class Component extends DCLogic {
+  state = {
+    submitted: false,
+    schedule: [
+      { day: 'Friday', time: '6:00 PM', title: 'Welcome Reception', desc: 'An informal evening of drinks and hors d\'oeuvres at the Harbor View lawn.' },
+      { day: 'Saturday', time: '4:00 PM', title: 'Ceremony', desc: 'Exchange of vows overlooking the bluffs, followed by a champagne toast.' },
+      { day: 'Saturday', time: '5:30 PM', title: 'Cocktail Hour', desc: 'Cocktails and passed canapés on the terrace as the sun begins to set.' },
+      { day: 'Saturday', time: '7:00 PM', title: 'Reception', desc: 'Dinner, dancing, and celebration under the stars until midnight.' }
+    ],
+    registries: [
+      { name: 'Crate & Barrel', href: '#' },
+      { name: 'Williams Sonoma', href: '#' },
+      { name: 'Honeymoon Fund', href: '#' }
+    ]
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.setState({ submitted: true });
+  };
+
+  renderVals() {
+    return {
+      submitted: this.state.submitted,
+      schedule: this.state.schedule,
+      registries: this.state.registries,
+      handleSubmit: this.handleSubmit
+    };
+  }
+}
+
+</script>
+
+
+</body></html>
