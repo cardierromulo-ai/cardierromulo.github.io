@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rómulo Cardier — Diseñador &amp; Creador de Contenido con IA</title>
+  <link rel="stylesheet" href="_ds/organic-9270d33e-8b90-4f93-a0ba-79d2859d6cef/styles.css">
+  <script src="_ds/organic-9270d33e-8b90-4f93-a0ba-79d2859d6cef/_ds_bundle.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { margin: 0; text-wrap: pretty; overflow-x: clip; background: var(--color-neutral-900); color: var(--color-bg); }
+    a { color: var(--color-accent-300); text-decoration: none; }
+    a:hover { color: var(--color-bg); text-decoration: underline; }
+    .washed img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.82) contrast(0.96) brightness(1.02); }
+    .rc-heading { font-family: "Space Grotesk", var(--font-body); }
+    .rc-contain img { object-fit: contain !important; background: var(--color-neutral-800); }
+    .rc-form-dark .field > label { color: color-mix(in srgb, var(--color-bg) 80%, transparent) !important; }
+    @media (max-width: 720px) {
+      .rc-nav-links { display: none; }
+      .rc-hero-split { grid-template-columns: 1fr !important; }
+      .rc-patch-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</helmet>
+
+<nav class="nav" style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-block:20px;background:var(--color-neutral-900);border-bottom:1px solid var(--color-neutral-800)">
+  <span class="nav-brand rc-heading" style="font-size:20px;color:var(--color-bg);font-weight:700">Rómulo Cardier</span>
+  <div class="rc-nav-links" style="display:flex;align-items:center;gap:28px;flex-wrap:wrap">
+    <a href="#web" style="color:var(--color-bg)">{{ t.navWeb }}</a>
+    <a href="#marca" style="color:var(--color-bg)">{{ t.navBrand }}</a>
+    <a href="#ia" style="color:var(--color-bg)">{{ t.navAI }}</a>
+    <a href="#contacto" style="color:var(--color-bg)">{{ t.navContact }}</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div style="display:flex;background:var(--color-neutral-800);border-radius:999px;padding:3px;gap:2px">
+      <button type="button" onClick="{{ setLangEs }}" style="{{ langBtnEsStyle }}">ES</button>
+      <button type="button" onClick="{{ setLangEn }}" style="{{ langBtnEnStyle }}">EN</button>
+    </div>
+    <a href="#contacto" class="btn btn-primary">{{ t.ctaTalk }}</a>
+  </div>
+</nav>
+
+<div class="wrap" style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+
+  <section class="rc-hero-split" style="position:relative;padding:64px 0 56px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);gap:48px;align-items:center">
+    <div style="position:absolute;right:-120px;top:-140px;width:360px;height:360px;border-radius:50%;background:color-mix(in srgb, var(--color-accent-2) 22%, transparent);z-index:-1"></div>
+    <div>
+      <span class="kicker" style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-300);margin:0 0 18px">{{ t.heroKicker }}</span>
+      <h1 class="rc-heading" style="font-weight:700;font-size:clamp(34px,4.6vw,60px);line-height:1.14;margin:0;color:var(--color-bg)">
+        <span style="display:block">{{ t.heroLine1 }}</span>
+        <span style="display:block;color:var(--color-accent-300)">{{ t.heroLine2 }}</span>
+      </h1>
+      <p style="font-size:17.5px;line-height:1.65;max-width:58ch;margin:26px 0 0;color:color-mix(in srgb, var(--color-bg) 78%, transparent)">{{ t.heroSub }}</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:32px">
+        <a href="#web" class="btn btn-primary">{{ t.heroCta1 }}</a>
+        <a href="#contacto" class="btn btn-ghost" style="color:var(--color-accent-300)">{{ t.heroCta2 }}</a>
+      </div>
+    </div>
+    <div class="washed" style="border-radius:calc(2 * var(--radius-lg));overflow:hidden;aspect-ratio:4/5;width:100%">
+      <img src="assets/hero-portrait.png" alt="Rómulo Cardier" style="display:block;width:100%;height:100%;object-fit:cover">
+    </div>
+  </section>
+
+  <section id="web" style="padding:48px 0 24px">
+    <span class="kicker" style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-300);margin:0 0 14px">{{ t.webKicker }}</span>
+    <h2 class="rc-heading" style="font-weight:700;font-size:clamp(26px,3.2vw,38px);line-height:1.2;margin:0 0 36px;max-width:22ch;color:var(--color-bg)">{{ t.webTitle }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:32px">
+      <sc-for list="{{ webProjects }}" as="p" hint-placeholder-count="4">
+        <a href="{{ p.url }}" target="_blank" rel="noopener" class="card elev-sm" style="padding:0;overflow:hidden;border-radius:var(--radius-lg);text-decoration:none;color:inherit;display:block">
+          <div class="washed rc-contain" style="width:100%;aspect-ratio:16/10;overflow:hidden;background:var(--color-neutral-800)">
+            <img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:100%">
+          </div>
+          <div style="padding:22px">
+            <span class="tag tag-accent" style="margin-bottom:12px;display:inline-block">{{ p.tag }}</span>
+            <h3 class="card-title rc-heading" style="font-weight:700;font-size:20px;margin:6px 0 8px">{{ p.name }}</h3>
+            <p class="card-body" style="font-size:14.5px;line-height:1.6;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">{{ p.desc }}</p>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="marca" style="padding:56px 0 24px">
+    <span class="kicker" style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-2-300);margin:0 0 14px">{{ t.brandKicker }}</span>
+    <h2 class="rc-heading" style="font-weight:700;font-size:clamp(26px,3.2vw,38px);line-height:1.2;margin:0 0 36px;max-width:22ch;color:var(--color-bg)">{{ t.brandTitle }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(360px, 1fr));gap:32px">
+      <sc-for list="{{ brandProjects }}" as="b" hint-placeholder-count="2">
+        <a href="{{ b.url }}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block">
+          <div class="washed rc-contain" style="width:100%;aspect-ratio:4/3;border-radius:calc(2 * var(--radius-lg));overflow:hidden;background:var(--color-neutral-800)">
+            <img src="{{ b.img }}" alt="{{ b.name }}" style="width:100%;height:100%">
+          </div>
+          <h3 class="rc-heading" style="font-size:22px;font-weight:700;margin:20px 0 8px;color:var(--color-bg)">{{ b.name }}</h3>
+          <p style="font-size:15px;line-height:1.6;margin:0;max-width:46ch;color:color-mix(in srgb, var(--color-bg) 75%, transparent)">{{ b.desc }}</p>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="ia" style="padding:56px 0 24px">
+    <span class="kicker" style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-300);margin:0 0 14px">{{ t.aiKicker }}</span>
+    <h2 class="rc-heading" style="font-weight:700;font-size:clamp(26px,3.2vw,38px);line-height:1.2;margin:0 0 36px;max-width:24ch;color:var(--color-bg)">{{ t.aiTitle }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));gap:32px">
+      <sc-for list="{{ aiItems }}" as="i" hint-placeholder-count="2">
+        <a href="{{ i.url }}" target="_blank" rel="noopener" class="card elev-sm" style="display:flex;flex-direction:column;gap:16px;padding:28px;text-decoration:none;color:inherit">
+          <img src="{{ i.img }}" alt="{{ i.name }}" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;display:block">
+          <h3 class="rc-heading" style="font-weight:700;font-size:21px;margin:0">{{ i.name }}</h3>
+          <p style="font-size:15px;line-height:1.6;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">{{ i.desc }}</p>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="contacto" style="padding:56px 0 64px">
+    <div class="patch rc-patch-grid" style="background:var(--color-neutral-800);border:1px solid color-mix(in srgb, var(--color-accent-2) 35%, transparent);border-radius:calc(2 * var(--radius-lg));padding:44px clamp(24px,4vw,64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px">
+      <div>
+        <span class="kicker" style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-2-300);margin:0 0 14px">{{ t.contactKicker }}</span>
+        <h2 class="rc-heading" style="font-weight:700;font-size:clamp(26px,3vw,34px);line-height:1.2;margin:0 0 12px;color:var(--color-bg)">{{ t.contactTitle }}</h2>
+        <p style="font-size:15.5px;line-height:1.6;margin:0 0 24px;max-width:44ch;color:color-mix(in srgb, var(--color-bg) 82%, transparent)">{{ t.contactSub }}</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="mailto:cardierromulo@gmail.com" style="font-size:15px;color:var(--color-bg);font-weight:600">cardierromulo@gmail.com</a>
+          <a href="https://instagram.com/romulocardier" target="_blank" rel="noopener" style="font-size:15px;color:var(--color-bg);font-weight:600">@romulocardier · Instagram</a>
+          <a href="https://linkedin.com/in/romulocardier" target="_blank" rel="noopener" style="font-size:15px;color:var(--color-bg);font-weight:600">romulocardier · LinkedIn</a>
+          <a href="https://wa.me/584143161803" target="_blank" rel="noopener" style="font-size:15px;color:var(--color-bg);font-weight:600">+58 414 316 1803 · WhatsApp</a>
+        </div>
+      </div>
+      <div class="rc-form-dark" style="display:flex;flex-direction:column;gap:14px">
+        <div class="field">
+          <label for="rc-name">{{ t.formName }}</label>
+          <input class="input" id="rc-name" type="text" value="{{ formName }}" onChange="{{ onNameChange }}">
+        </div>
+        <div class="field">
+          <label for="rc-email">{{ t.formEmail }}</label>
+          <input class="input" id="rc-email" type="email" value="{{ formEmail }}" onChange="{{ onEmailChange }}">
+        </div>
+        <div class="field">
+          <label for="rc-message">{{ t.formMessage }}</label>
+          <textarea class="input" id="rc-message" rows="4" style="resize:vertical;font-family:var(--font-body)" value="{{ formMessage }}" onChange="{{ onMessageChange }}"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" onClick="{{ onSubmit }}">{{ t.formSubmit }}</button>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:28px 0 40px;font-size:13px;color:color-mix(in srgb, var(--color-bg) 65%, transparent)">{{ t.footer }}</footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const COPY = {
+  es: {
+    navWeb: "Web", navBrand: "Marca", navAI: "IA", navContact: "Contacto", ctaTalk: "Hablemos",
+    heroKicker: "DISEÑO + IA",
+    heroLine1: "Implemento la Inteligencia Artificial",
+    heroLine2: "para diseñar con criterio.",
+    heroSub: "Contenido creado con estrategia, diseño e IA en cada línea de código. Sitios web, identidad de marca y herramientas inteligentes para negocios que quieren destacar.",
+    heroCta1: "Ver portafolio", heroCta2: "Hablemos",
+    webKicker: "Páginas web", webTitle: "Sitios que convierten visitas en clientes.",
+    brandKicker: "Identidad de marca", brandTitle: "Marcas con carácter propio.",
+    aiKicker: "Artefactos con IA", aiTitle: "Herramientas que piensan por ti.",
+    contactKicker: "Contacto", contactTitle: "Construyamos algo juntos.",
+    contactSub: "Cuéntame tu proyecto y te respondo en menos de 24 horas.",
+    formName: "Nombre", formEmail: "Email", formMessage: "Mensaje", formSubmit: "Enviar mensaje",
+    footer: "© 2026 Rómulo Cardier — Diseño y creación de contenido con IA.",
+    web: [
+      { name: "Matt & Kelly", tag: "Sitio de evento", desc: "Invitación de boda con RSVP integrado y una narrativa cálida para cada detalle del gran día." },
+      { name: "Pulse Fitness", tag: "Landing de conversión", desc: "Landing de alto impacto para un estudio de entrenamiento — energía, contraste y una sola meta: reservar clase." },
+      { name: "Dog Style Grooming Miami", tag: "Servicio local", desc: "Sitio para un estudio de grooming canino móvil, pensado para reservas rápidas desde el celular." },
+      { name: "Ashborne Construction", tag: "Corporativo", desc: "Presencia web sólida para una constructora residencial con dos décadas de trayectoria." }
+    ],
+    brand: [
+      { name: "Cook ToGo", desc: "Manual de marca para un servicio de delivery: logotipo, paleta y voz listos para escalar." },
+      { name: "Aurea", desc: "Guía de marca para skincare botánico de pequeños lotes — elegante, cálida y hecha a mano." }
+    ],
+    ai: [
+      { name: "Generador de patrones", desc: "Crea patrones únicos para textiles e impresos en segundos, listos para producción.", placeholder: "Arrastra una muestra del patrón" },
+      { name: "Creador de presupuesto personal", desc: "Una herramienta que organiza tus finanzas y sugiere ajustes automáticos, sin hojas de cálculo.", placeholder: "Arrastra una captura de la app" }
+    ]
+  },
+  en: {
+    navWeb: "Web", navBrand: "Brand", navAI: "AI", navContact: "Contact", ctaTalk: "Let's talk",
+    heroKicker: "DESIGN + AI",
+    heroLine1: "I apply artificial intelligence",
+    heroLine2: "to design with judgment.",
+    heroSub: "Content built with strategy, design, and AI in every line of code. Websites, brand identity, and smart tools for businesses that want to stand out.",
+    heroCta1: "See the work", heroCta2: "Let's talk",
+    webKicker: "Websites", webTitle: "Sites that turn visits into customers.",
+    brandKicker: "Brand identity", brandTitle: "Brands with a voice of their own.",
+    aiKicker: "AI-made artifacts", aiTitle: "Tools that think for you.",
+    contactKicker: "Contact", contactTitle: "Let's build something together.",
+    contactSub: "Tell me about your project — I reply within 24 hours.",
+    formName: "Name", formEmail: "Email", formMessage: "Message", formSubmit: "Send message",
+    footer: "© 2026 Rómulo Cardier — Design and AI content creation.",
+    web: [
+      { name: "Matt & Kelly", tag: "Event site", desc: "A wedding invitation with built-in RSVP and a warm narrative for every detail of the big day." },
+      { name: "Pulse Fitness", tag: "Conversion landing", desc: "A high-impact landing for a training studio — energy, contrast, and one goal: book a class." },
+      { name: "Dog Style Grooming Miami", tag: "Local service", desc: "A site for a mobile dog-grooming studio, built for fast bookings from the phone." },
+      { name: "Ashborne Construction", tag: "Corporate", desc: "A solid web presence for a residential builder with two decades in the trade." }
+    ],
+    brand: [
+      { name: "Cook ToGo", desc: "Brand manual for a delivery service: logo, palette, and voice ready to scale." },
+      { name: "Aurea", desc: "Brand guide for a small-batch botanical skincare line — elegant, warm, and handmade." }
+    ],
+    ai: [
+      { name: "Pattern generator", desc: "Creates unique patterns for textiles and print in seconds, ready for production.", placeholder: "Drop a pattern sample" },
+      { name: "Personal budget builder", desc: "A tool that organizes your finances and suggests automatic adjustments, no spreadsheets.", placeholder: "Drop an app screenshot" }
+    ]
+  }
+};
+
+const WEB_IMGS = ["assets/web-matt-kelly-sm.png", "assets/web-pulse-fitness-sm.png", "assets/web-dogstyle-sm.png", "assets/web-ashborne-sm.png"];
+const BRAND_IMGS = ["assets/brand-cooktogo.png", "assets/brand-aurea.png"];
+const WEB_URLS = ["projects/matt-and-kelly.html", "projects/pulse-fitness.html", "projects/dogstyle-grooming.html", "projects/ashborne-construction.html"];
+const BRAND_URLS = ["projects/cooktogo-manual-marca.pdf", "projects/aurea-brand-deck.pdf"];
+const AI_URLS = ["projects/generador-patrones.html", "projects/presupuesto-personal.html"];
+const AI_IMGS = ["assets/ai-pattern.png", "assets/ai-budget.png"];
+
+class Component extends DCLogic {
+  state = { lang: "es", formName: "", formEmail: "", formMessage: "" };
+
+  setLangEs = () => this.setState({ lang: "es" });
+  setLangEn = () => this.setState({ lang: "en" });
+  onNameChange = (e) => this.setState({ formName: e.target.value });
+  onEmailChange = (e) => this.setState({ formEmail: e.target.value });
+  onMessageChange = (e) => this.setState({ formMessage: e.target.value });
+
+  onSubmit = () => {
+    const { formName, formEmail, formMessage } = this.state;
+    const body = encodeURIComponent(`${formMessage}\n\n— ${formName} (${formEmail})`);
+    const subject = encodeURIComponent("Nuevo mensaje desde el portafolio");
+    window.open(`mailto:cardierromulo@gmail.com?subject=${subject}&body=${body}`, "_self");
+  };
+
+  pillStyle(active) {
+    return `border:none;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer;background:${active ? "var(--color-accent)" : "transparent"};color:${active ? "var(--color-neutral-900)" : "var(--color-bg)"}`;
+  }
+
+  renderVals() {
+    const lang = this.state.lang;
+    const t = COPY[lang];
+    return {
+      t,
+      langBtnEsStyle: this.pillStyle(lang === "es"),
+      langBtnEnStyle: this.pillStyle(lang === "en"),
+      setLangEs: this.setLangEs,
+      setLangEn: this.setLangEn,
+      webProjects: t.web.map((p, i) => ({ ...p, img: WEB_IMGS[i], url: WEB_URLS[i] })),
+      brandProjects: t.brand.map((b, i) => ({ ...b, img: BRAND_IMGS[i], url: BRAND_URLS[i] })),
+      aiItems: t.ai.map((a, i) => ({ ...a, img: AI_IMGS[i], url: AI_URLS[i] })),
+      formName: this.state.formName,
+      formEmail: this.state.formEmail,
+      formMessage: this.state.formMessage,
+      onNameChange: this.onNameChange,
+      onEmailChange: this.onEmailChange,
+      onMessageChange: this.onMessageChange,
+      onSubmit: this.onSubmit
+    };
+  }
+}
+
+</script>
+</body>
+</html>
