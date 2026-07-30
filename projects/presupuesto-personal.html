@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Mi Libro de Cuentas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FAF6EE;
+    --ivory-deep:#F1EADB;
+    --ink:#1F2937;
+    --ink-soft:#5B6472;
+    --emerald:#0E8F6B;
+    --emerald-soft:#E4F3EC;
+    --carmine:#C13B4E;
+    --carmine-soft:#FBEAEC;
+    --gold:#B8923A;
+    --amber:#C97A24;
+    --line:#DFD6C1;
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family:'Inter', sans-serif;
+    background-color:var(--ivory);
+    color:var(--ink);
+    min-height:100vh;
+    padding-bottom:7rem;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px);
+    background-size: 100% 2.35rem;
+    background-position: 0 6.2rem;
+  }
+  button, input, select{ font-family:inherit; }
+  .serif{ font-family:'Source Serif 4', serif; }
+
+  .container{ max-width:28rem; margin:0 auto; padding:1.5rem 1rem 0; }
+  .toast-container{ position:fixed; bottom:6rem; left:50%; transform:translateX(-50%); z-index:60; display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+
+  .header{ padding-bottom:1.25rem; display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; }
+  .eyebrow{ font-size:.75rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); font-weight:600; margin:0; }
+  .title{ font-size:1.5rem; font-weight:600; margin:.15rem 0 0; text-transform:capitalize; }
+
+  .card{ background:#fff; border:1px solid var(--line); border-radius:.75rem; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+  .receipt-edge{ position:relative; }
+  .receipt-edge::before{
+    content:''; position:absolute; top:-6px; left:0; right:0; height:6px;
+    background-image: radial-gradient(circle at 6px 6px, var(--ivory) 5px, transparent 5.5px);
+    background-size: 12px 12px; background-position: 0 0;
+  }
+
+  /* Currency picker */
+  .currency-wrap{ position:relative; flex-shrink:0; }
+  .currency-btn{
+    display:flex; align-items:center; gap:.375rem; background:#fff; border:1px solid var(--line);
+    border-radius:999px; padding:.5rem .875rem; font-size:.8125rem; font-weight:600; color:var(--ink);
+    cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.04); white-space:nowrap;
+  }
+  .currency-btn .chev{ font-size:.625rem; color:var(--ink-soft); }
+  .currency-panel{
+    position:absolute; top:calc(100% + .5rem); right:0; width:17rem; max-width:80vw;
+    background:#fff; border:1px solid var(--line); border-radius:.75rem; box-shadow:0 8px 24px rgba(0,0,0,.12);
+    z-index:70; padding:.75rem; animation:riseIn .18s ease both;
+  }
+  .currency-search{ margin-bottom:.5rem; }
+  .currency-list{ max-height:15rem; overflow-y:auto; display:flex; flex-direction:column; }
+  .currency-item{
+    display:flex; align-items:baseline; justify-content:space-between; gap:.5rem;
+    padding:.5rem .5rem; border-radius:.4rem; cursor:pointer; background:none; border:none; text-align:left; width:100%;
+    font-size:.8125rem; color:var(--ink);
+  }
+  .currency-item:hover{ background:var(--ivory); }
+  .currency-item.selected{ background:var(--emerald-soft); color:var(--emerald); font-weight:600; }
+  .currency-item .code{ font-weight:600; flex-shrink:0; }
+  .currency-item .name{ color:var(--ink-soft); font-size:.75rem; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; flex:1; }
+  .currency-empty{ padding:.75rem .5rem; font-size:.8125rem; color:var(--ink-soft); text-align:center; }
+
+  /* Rate card */
+  .rate-card{ padding:1.25rem; margin-bottom:1.5rem; }
+  .rate-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; }
+  .rate-label{ font-size:.6875rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); font-weight:500; margin:0; }
+  .rate-value{ font-size:1.5rem; font-weight:600; margin:.125rem 0 0; }
+  .rate-value .unit{ font-size:.875rem; font-weight:400; color:var(--ink-soft); font-family:'Inter',sans-serif; }
+  .rate-date{ font-size:.75rem; color:var(--ink-soft); margin:.125rem 0 0; }
+  .stamp{
+    border:2px solid var(--amber); color:var(--amber); transform:rotate(-3deg); font-weight:700;
+    letter-spacing:.04em; font-size:.625rem; padding:.375rem .625rem; border-radius:.375rem; flex-shrink:0;
+  }
+  .rate-foot{ margin-top:.75rem; display:flex; align-items:center; justify-content:space-between; gap:.5rem; flex-wrap:wrap; }
+  .rate-dev{ font-size:.75rem; margin:0; }
+  .rate-toggle{ background:none; border:none; padding:0; font-size:.75rem; font-weight:600; color:var(--amber); text-decoration:underline; text-underline-offset:2px; cursor:pointer; }
+  .rate-form{ margin-top:1rem; padding-top:1rem; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:.75rem; animation:riseIn .28s ease both; }
+  .rate-hint{ font-size:.6875rem; color:var(--ink-soft); line-height:1.5; margin:0; }
+  .rate-hint b{ font-weight:500; }
+  .rate-missing{ font-size:.8125rem; color:var(--ink-soft); margin:0 0 .75rem; line-height:1.5; }
+
+  /* Summary */
+  .summary{ display:grid; gap:.75rem; margin-bottom:1.5rem; }
+  .balance-card{ padding:1rem 1.25rem; }
+  .stat-label{ font-size:.75rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); font-weight:500; margin:0; }
+  .balance-value{ font-size:1.875rem; font-weight:600; margin:.25rem 0 0; }
+  .balance-usd{ font-size:.75rem; color:var(--ink-soft); margin:.25rem 0 0; }
+  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+  .stat-card{ padding:.875rem 1rem; }
+  .stat-label-sm{ font-size:.6875rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); font-weight:500; margin:0; }
+  .stat-value{ font-size:1.125rem; font-weight:600; margin:.125rem 0 0; }
+  .stat-usd{ font-size:.6875rem; color:var(--ink-soft); margin:0; }
+
+  /* Form */
+  .form-section{ margin-bottom:1.5rem; }
+  .form-toggle{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    background:var(--ink); color:var(--ivory); border:none; border-radius:.75rem;
+    padding:.875rem 1.25rem; box-shadow:0 1px 2px rgba(0,0,0,.04); cursor:pointer;
+  }
+  .form-toggle span.label{ font-weight:500; font-size:.875rem; }
+  .form-toggle span.icon{ font-family:'Source Serif 4',serif; font-size:1.125rem; }
+  .tx-form{ margin-top:.75rem; padding:1.25rem; display:flex; flex-direction:column; gap:1rem; animation:riseIn .28s ease both; }
+  .field-label{ display:block; font-size:.75rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); font-weight:500; margin-bottom:.375rem; }
+  .field-hint{ font-size:.6875rem; color:var(--ink-soft); margin:.25rem 0 0; }
+  .type-toggle{ display:grid; grid-template-columns:1fr 1fr; gap:.5rem; }
+  .type-btn{
+    border-radius:.5rem; padding:.625rem 0; font-size:.875rem; font-weight:600;
+    border:2px solid var(--line); color:var(--ink-soft); background:#fff; cursor:pointer; transition:all .18s ease;
+  }
+  .type-btn.active-gasto{ border-color:var(--carmine); background:var(--carmine-soft); color:var(--carmine); }
+  .type-btn.active-ingreso{ border-color:var(--emerald); background:var(--emerald-soft); color:var(--emerald); }
+  .amount-wrap{ position:relative; }
+  .amount-prefix{ position:absolute; left:.875rem; top:50%; transform:translateY(-50%); color:var(--ink-soft); font-family:'Source Serif 4',serif; font-size:.875rem; }
+  input, select{
+    width:100%; border:1px solid var(--line); border-radius:.5rem; background:var(--ivory);
+    color:var(--ink); padding:.625rem 1rem; font-size:.875rem;
+  }
+  input:focus, select:focus, button:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; background:#fff; }
+  .amount-input{ padding-left:2.75rem; font-family:'Source Serif 4',serif; font-size:1.125rem; }
+  .cat-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:.5rem; }
+  .cat-btn{
+    font-size:.75rem; font-weight:500; border-radius:.5rem; padding:.5rem 0;
+    border:1px solid var(--line); color:var(--ink-soft); background:#fff; cursor:pointer; transition:all .18s ease;
+  }
+  .cat-btn.active{ border-color:var(--gold); background:#FBF3DF; color:var(--ink); }
+  .submit-btn{
+    width:100%; padding:.75rem 0; border-radius:.5rem; font-weight:600; font-size:.875rem;
+    color:#fff; border:none; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.04);
+  }
+
+  /* Chart */
+  .section-title{ font-size:.75rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); font-weight:600; margin:0 0 .75rem; }
+  .empty-card{ padding:1.5rem; text-align:center; border:1px dashed var(--line); border-radius:.75rem; background:transparent; }
+  .empty-card p{ font-size:.875rem; color:var(--ink-soft); margin:0; }
+  .chart-card{ padding:1.25rem; display:flex; flex-direction:column; gap:.875rem; }
+  .chart-row-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:.25rem; }
+  .chart-cat{ font-size:.875rem; font-weight:500; }
+  .chart-amt{ font-size:.875rem; font-weight:600; font-family:'Source Serif 4',serif; }
+  .chart-amt .pct{ color:var(--ink-soft); font-size:.75rem; font-weight:400; font-family:'Inter',sans-serif; }
+  .chart-track{ height:.625rem; width:100%; border-radius:999px; background:var(--ivory-deep); overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:999px; transition:width .5s cubic-bezier(.4,0,.2,1); }
+
+  /* History */
+  .history-list{ display:flex; flex-direction:column; gap:.5rem; }
+  .history-item{ display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; }
+  .history-left{ display:flex; align-items:center; gap:.75rem; min-width:0; }
+  .history-icon{ flex-shrink:0; width:2.25rem; height:2.25rem; border-radius:999px; display:flex; align-items:center; justify-content:center; font-size:1rem; }
+  .history-text{ min-width:0; }
+  .history-desc{ font-size:.875rem; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0; }
+  .history-meta{ font-size:.75rem; color:var(--ink-soft); margin:0; }
+  .history-right{ display:flex; align-items:center; gap:.75rem; flex-shrink:0; }
+  .history-amount-wrap{ text-align:right; }
+  .history-amount{ font-family:'Source Serif 4',serif; font-weight:600; font-size:.875rem; margin:0; }
+  .history-usd{ font-size:.625rem; color:var(--ink-soft); margin:0; }
+  .del-btn{ background:none; border:none; padding:0; cursor:pointer; color:var(--ink-soft); transition:color .15s ease; display:flex; }
+  .del-btn:hover{ color:var(--carmine); }
+
+  .toast{ animation: toastIn .25s ease both; color:#fff; font-size:.875rem; font-weight:500; padding:.625rem 1rem; border-radius:999px; box-shadow:0 4px 10px rgba(0,0,0,.12); }
+  @keyframes riseIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes toastIn{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+
+<div id="app" class="container"></div>
+<div id="toast-container" class="toast-container"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  // Nota: no se usa localStorage (no disponible en este entorno de vista previa).
+  // Las tasas de cambio no se consultan en vivo (no hay acceso a APIs externas de FX);
+  // se registran manualmente, igual que harías consultando tu fuente de referencia (ej. bcv.org.ve,
+  // el banco central de tu país, o un conversor como xe.com).
+
+  const PRIORITY = ['USD','EUR','GBP','VES','MXN','COP','ARS','BRL','CLP','PEN'];
+
+  function buildCurrencyList(){
+    let list = [];
+    try{
+      if (typeof Intl.supportedValuesOf === 'function'){
+        const codes = Intl.supportedValuesOf('currency');
+        const dn = new Intl.DisplayNames(['es'], { type:'currency' });
+        list = codes.map(code => ({ code, name: (dn.of(code) || code) }));
+      }
+    }catch(e){ /* fall through to fallback below */ }
+
+    if (list.length === 0){
+      list = [
+        ['USD','Dólar estadounidense'],['EUR','Euro'],['GBP','Libra esterlina'],['JPY','Yen japonés'],
+        ['CNY','Yuan chino'],['MXN','Peso mexicano'],['VES','Bolívar venezolano'],['ARS','Peso argentino'],
+        ['BRL','Real brasileño'],['COP','Peso colombiano'],['CLP','Peso chileno'],['PEN','Sol peruano'],
+        ['CAD','Dólar canadiense'],['AUD','Dólar australiano'],['CHF','Franco suizo'],['INR','Rupia india'],
+        ['KRW','Won surcoreano'],['SGD','Dólar de Singapur'],['HKD','Dólar de Hong Kong'],['NZD','Dólar neozelandés'],
+        ['SEK','Corona sueca'],['NOK','Corona noruega'],['DKK','Corona danesa'],['PLN','Zloty polaco'],
+        ['TRY','Lira turca'],['ZAR','Rand sudafricano'],['AED','Dirham de EAU'],['SAR','Riyal saudí'],
+        ['THB','Baht tailandés'],['IDR','Rupia indonesia'],['MYR','Ringgit malayo'],['PHP','Peso filipino'],
+        ['VND','Dong vietnamita'],['EGP','Libra egipcia'],['NGN','Naira nigeriana'],['RUB','Rublo ruso'],
+        ['UAH','Grivna ucraniana'],['CZK','Corona checa'],['HUF','Florín húngaro'],['RON','Leu rumano'],
+        ['ILS','Nuevo shéquel israelí'],['PKR','Rupia pakistaní'],['BDT','Taka bangladesí'],['DOP','Peso dominicano'],
+        ['GTQ','Quetzal guatemalteco'],['HNL','Lempira hondureño'],['CRC','Colón costarricense'],
+        ['PYG','Guaraní paraguayo'],['UYU','Peso uruguayo'],['BOB','Boliviano'],['PAB','Balboa panameño'],
+        ['NIO','Córdoba nicaragüense'],['CUP','Peso cubano']
+      ].map(([code,name]) => ({ code, name }));
+    }
+
+    list.sort((a,b) => a.code.localeCompare(b.code));
+    const priority = PRIORITY.map(code => list.find(c => c.code === code)).filter(Boolean);
+    const rest = list.filter(c => !PRIORITY.includes(c.code));
+    return [...priority, ...rest];
+  }
+
+  const CURRENCIES = buildCurrencyList();
+  const CURRENCY_MAP = Object.fromEntries(CURRENCIES.map(c => [c.code, c.name]));
+
+  function getSymbol(code){
+    try{
+      const parts = new Intl.NumberFormat('es', { style:'currency', currency:code, currencyDisplay:'narrowSymbol' }).formatToParts(1);
+      const sym = parts.find(p => p.type === 'currency');
+      return sym ? sym.value : code;
+    }catch(e){ return code; }
+  }
+  function money(n, code){
+    try{
+      return new Intl.NumberFormat('es', { style:'currency', currency:code }).format(n);
+    }catch(e){
+      return (n < 0 ? '-' : '') + Math.abs(n).toFixed(2) + ' ' + code;
+    }
+  }
+  function usd(n){ return '$' + new Intl.NumberFormat('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 }).format(n); }
+
+  // ---------- State ----------
+  let currency = 'USD';
+  let currencyOpen = false;
+  let currencySearch = '';
+
+  let rateHistory = []; // { date, rate } where rate = units of `currency` per 1 USD
+
+  let transactions = [
+    { id: cryptoId(), type: 'ingreso', amount: 1200, category: 'Salario', desc: 'Pago quincenal', date: isoDaysAgo(6), currency: 'USD', rate: null },
+    { id: cryptoId(), type: 'gasto', amount: 45.50, category: 'Comida', desc: 'Supermercado', date: isoDaysAgo(4), currency: 'USD', rate: null },
+    { id: cryptoId(), type: 'gasto', amount: 20, category: 'Transporte', desc: 'Gasolina', date: isoDaysAgo(3), currency: 'USD', rate: null },
+    { id: cryptoId(), type: 'gasto', amount: 60, category: 'Servicios', desc: 'Internet', date: isoDaysAgo(2), currency: 'USD', rate: null },
+    { id: cryptoId(), type: 'gasto', amount: 32, category: 'Entretenimiento', desc: 'Cine', date: isoDaysAgo(1), currency: 'USD', rate: null },
+  ];
+
+  const CATEGORIES = ['Comida','Transporte','Servicios','Entretenimiento','Salario','Otros'];
+  const CATEGORY_ICON = { 'Comida':'🍽️','Transporte':'🚗','Servicios':'💡','Entretenimiento':'🎬','Salario':'💼','Otros':'🗂️' };
+
+  let formType = 'gasto';
+  let formCategory = 'Comida';
+  let formOpen = false;
+  let rateFormOpen = false;
+  let rateLoading = false;
+  let rateError = null;
+
+  function cryptoId(){ return 'tx_' + Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
+  function isoDaysAgo(n){ const d = new Date(); d.setDate(d.getDate()-n); return d.toISOString().slice(0,10); }
+  function todayISO(){ return new Date().toISOString().slice(0,10); }
+  function formatDate(iso){ const d = new Date(iso + 'T00:00:00'); return d.toLocaleDateString('es-ES', { day:'numeric', month:'short' }); }
+  function formatDateLong(iso){ const d = new Date(iso + 'T00:00:00'); return d.toLocaleDateString('es-ES', { day:'numeric', month:'short', year:'numeric' }); }
+
+  function currentRate(){ return rateHistory.length ? rateHistory[rateHistory.length - 1].rate : null; }
+  function firstRate(){ return rateHistory.length ? rateHistory[0].rate : null; }
+  function devaluationPct(){
+    const first = firstRate(), last = currentRate();
+    if (!first || !last || first <= 0) return null;
+    return ((last - first) / first) * 100;
+  }
+
+  function getMonthTransactions(){
+    const ym = new Date().toISOString().slice(0,7);
+    return transactions.filter(t => t.date.slice(0,7) === ym);
+  }
+  function getTotals(){
+    const monthTx = getMonthTransactions();
+    const ingresos = monthTx.filter(t=>t.type==='ingreso').reduce((s,t)=>s+t.amount,0);
+    const gastos = monthTx.filter(t=>t.type==='gasto').reduce((s,t)=>s+t.amount,0);
+    const saldo = transactions.reduce((s,t)=> s + (t.type==='ingreso'? t.amount : -t.amount), 0);
+    return { ingresos, gastos, saldo };
+  }
+  function getCategoryBreakdown(){
+    const monthTx = getMonthTransactions().filter(t=>t.type==='gasto');
+    const map = {};
+    CATEGORIES.forEach(c => map[c] = 0);
+    monthTx.forEach(t => { map[t.category] = (map[t.category]||0) + t.amount; });
+    const total = Object.values(map).reduce((a,b)=>a+b,0);
+    return { map, total };
+  }
+
+  function showToast(msg, tone){
+    const container = document.getElementById('toast-container');
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.style.background = tone === 'error' ? 'var(--carmine)' : 'var(--emerald)';
+    el.textContent = msg;
+    container.appendChild(el);
+    setTimeout(()=>{ el.style.opacity='0'; el.style.transition='opacity .3s'; setTimeout(()=>el.remove(),300); }, 2400);
+  }
+
+  function addTransaction(payload){
+    transactions.unshift({ id: cryptoId(), currency, rate: currentRate(), ...payload });
+    render();
+    showToast(payload.type === 'ingreso' ? 'Ingreso registrado' : 'Gasto registrado');
+  }
+  function deleteTransaction(id){
+    transactions = transactions.filter(t => t.id !== id);
+    render();
+    showToast('Movimiento eliminado', 'error');
+  }
+  function addRate(newRate, date, auto){
+    rateHistory.push({ date, rate: newRate });
+    rateHistory.sort((a,b) => a.date.localeCompare(b.date));
+    render();
+    showToast(auto ? 'Tasa actualizada en vivo' : 'Tasa de cambio actualizada');
+  }
+  async function fetchLiveRate(){
+    rateLoading = true;
+    rateError = null;
+    render();
+    try{
+      const res = await fetch('https://open.er-api.com/v6/latest/USD');
+      if (!res.ok) throw new Error('network');
+      const data = await res.json();
+      const rate = data && data.rates ? data.rates[currency] : null;
+      if (!rate) throw new Error('unsupported');
+      rateLoading = false;
+      addRate(rate, todayISO(), true);
+    }catch(e){
+      rateLoading = false;
+      rateError = 'No se pudo obtener la tasa en vivo desde este entorno. Ingrésala manualmente abajo.';
+      rateFormOpen = true;
+      render();
+    }
+  }
+  function changeCurrency(newCode){
+    if (newCode === currency){ currencyOpen = false; render(); return; }
+    currency = newCode;
+    transactions = [];
+    rateHistory = [];
+    currencyOpen = false;
+    currencySearch = '';
+    formOpen = false;
+    rateFormOpen = false;
+    rateError = null;
+    render();
+    showToast('Moneda cambiada a ' + newCode + ' · historial reiniciado');
+  }
+
+  function render(){
+    const totals = getTotals();
+    const { map: catMap, total: catTotal } = getCategoryBreakdown();
+    const recent = transactions.slice(0, 15);
+    const app = document.getElementById('app');
+    app.innerHTML = `
+      ${renderHeader()}
+      ${currency !== 'USD' ? renderRateCard() : ''}
+      ${renderSummary(totals)}
+      ${renderForm()}
+      ${renderChart(catMap, catTotal)}
+      ${renderHistory(recent)}
+    `;
+    attachHandlers();
+  }
+
+  function renderHeader(){
+    const mes = new Date().toLocaleDateString('es-ES', { month:'long', year:'numeric' });
+    const filtered = currencySearch.trim()
+      ? CURRENCIES.filter(c => c.code.toLowerCase().includes(currencySearch.toLowerCase()) || c.name.toLowerCase().includes(currencySearch.toLowerCase()))
+      : CURRENCIES;
+    const listSlice = filtered.slice(0, 60);
+
+    return `
+      <header class="header">
+        <div>
+          <p class="eyebrow">Mi libro de cuentas</p>
+          <h1 class="title serif">${mes}</h1>
+        </div>
+        <div class="currency-wrap">
+          <button id="currency-btn" class="currency-btn">${currency} <span class="chev">▾</span></button>
+          ${currencyOpen ? `
+          <div class="currency-panel" id="currency-panel">
+            <input id="currency-search" type="text" class="currency-search" placeholder="Buscar moneda o código..." value="${currencySearch}">
+            <div class="currency-list" id="currency-list">
+              ${listSlice.length ? listSlice.map(c => `
+                <button type="button" class="currency-item ${c.code===currency ? 'selected' : ''}" data-currency="${c.code}">
+                  <span class="code">${c.code}</span><span class="name">${c.name}</span>
+                </button>
+              `).join('') : `<div class="currency-empty">Sin resultados</div>`}
+            </div>
+          </div>
+          ` : ''}
+        </div>
+      </header>
+    `;
+  }
+
+  function renderRateCard(){
+    const dev = devaluationPct();
+    const last = rateHistory.length ? rateHistory[rateHistory.length - 1] : null;
+    const devColor = (dev !== null && dev >= 0) ? 'var(--carmine)' : 'var(--emerald)';
+
+    return `
+      <section class="card rate-card">
+        ${last ? `
+        <div class="rate-top">
+          <div>
+            <p class="rate-label">Tasa de cambio vigente</p>
+            <p class="rate-value serif">${last.rate.toLocaleString('es')} <span class="unit">${currency}/USD</span></p>
+            <p class="rate-date">Actualizada: ${formatDateLong(last.date)}</p>
+          </div>
+          <div class="stamp">FX</div>
+        </div>
+        <div class="rate-foot">
+          ${dev !== null ? `<p class="rate-dev" style="color:${devColor}">${dev >= 0 ? '▲' : '▼'} ${Math.abs(dev).toFixed(1)}% desde ${formatDate(rateHistory[0].date)}</p>` : `<span></span>`}
+          <div style="display:flex; gap:.75rem;">
+            <button id="live-rate-btn" class="rate-toggle" ${rateLoading ? 'disabled' : ''}>${rateLoading ? 'Buscando…' : 'Actualizar en vivo'}</button>
+            <button id="toggle-rate" class="rate-toggle">${rateFormOpen ? 'Cancelar' : 'Manual'}</button>
+          </div>
+        </div>
+        ` : `
+        <p class="rate-missing">Configura cuántos <b>${currency}</b> equivalen a 1 USD para ver equivalencias y variación de tu moneda frente al dólar.</p>
+        <div style="display:flex; gap:.75rem; flex-wrap:wrap;">
+          <button id="live-rate-btn" class="rate-toggle" ${rateLoading ? 'disabled' : ''}>${rateLoading ? 'Buscando…' : 'Buscar tasa en vivo'}</button>
+          <button id="toggle-rate" class="rate-toggle">${rateFormOpen ? 'Cancelar' : '+ Ingresar manualmente'}</button>
+        </div>
+        `}
+        ${rateError ? `<p class="rate-hint" style="color:var(--carmine); margin-top:.5rem;">${rateError}</p>` : ''}
+        ${rateFormOpen ? `
+        <form id="rate-form" class="rate-form">
+          <div>
+            <label class="field-label">1 USD equivale a (${currency})</label>
+            <input id="rate-input" type="number" step="0.0001" min="0" placeholder="Ej. 18.50" class="serif" style="font-size:1.125rem" required>
+          </div>
+          <div>
+            <label class="field-label">Fecha</label>
+            <input id="rate-date-input" type="date" value="${todayISO()}" max="${todayISO()}">
+          </div>
+          <p class="rate-hint">Consulta tu fuente de referencia (banco central, banco local, o un conversor confiable) y regístrala aquí manualmente.</p>
+          <button type="submit" class="submit-btn" style="background:var(--amber)">Guardar tasa</button>
+        </form>
+        ` : ''}
+        <p class="rate-hint" style="margin-top:.75rem;">Tasas en vivo: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener" style="color:var(--ink-soft)">Exchange Rate API</a></p>
+      </section>
+    `;
+  }
+
+  function renderSummary(totals){
+    const saldoColor = totals.saldo >= 0 ? 'var(--emerald)' : 'var(--carmine)';
+    const rate = currentRate();
+    const showUsd = currency !== 'USD' && rate;
+    return `
+      <section class="summary">
+        <div class="card receipt-edge balance-card">
+          <p class="stat-label">Saldo actual</p>
+          <p class="balance-value serif" style="color:${saldoColor}">${money(totals.saldo, currency)}</p>
+          ${showUsd ? `<p class="balance-usd">≈ ${usd(totals.saldo / rate)} al tipo de cambio vigente</p>` : ''}
+        </div>
+        <div class="stat-grid">
+          <div class="card receipt-edge stat-card">
+            <p class="stat-label-sm">Ingresos</p>
+            <p class="stat-value serif" style="color:var(--emerald)">${money(totals.ingresos, currency)}</p>
+            ${showUsd ? `<p class="stat-usd">≈ ${usd(totals.ingresos / rate)}</p>` : ''}
+          </div>
+          <div class="card receipt-edge stat-card">
+            <p class="stat-label-sm">Gastos</p>
+            <p class="stat-value serif" style="color:var(--carmine)">${money(totals.gastos, currency)}</p>
+            ${showUsd ? `<p class="stat-usd">≈ ${usd(totals.gastos / rate)}</p>` : ''}
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderForm(){
+    const symbol = getSymbol(currency);
+    return `
+      <section class="form-section">
+        <button id="toggle-form" class="form-toggle">
+          <span class="label">${formOpen ? 'Cerrar formulario' : '+ Registrar movimiento'}</span>
+          <span class="icon">${formOpen ? '−' : '+'}</span>
+        </button>
+
+        ${formOpen ? `
+        <form id="tx-form" class="card tx-form">
+          <div class="type-toggle">
+            <button type="button" data-type="gasto" class="type-btn ${formType==='gasto' ? 'active-gasto' : ''}">Gasto</button>
+            <button type="button" data-type="ingreso" class="type-btn ${formType==='ingreso' ? 'active-ingreso' : ''}">Ingreso</button>
+          </div>
+
+          <div>
+            <label class="field-label">Monto (${currency})</label>
+            <div class="amount-wrap">
+              <span class="amount-prefix">${symbol}</span>
+              <input id="amount-input" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0.00" class="amount-input serif" required>
+            </div>
+            ${currentRate() ? `<p class="field-hint">Se guardará con la tasa vigente (${currentRate()} ${currency}/USD).</p>` : ''}
+          </div>
+
+          <div>
+            <label class="field-label">Categoría</label>
+            <div class="cat-grid">
+              ${CATEGORIES.map(c => `
+                <button type="button" data-cat="${c}" class="cat-btn ${formCategory===c ? 'active' : ''}">${CATEGORY_ICON[c]} ${c}</button>
+              `).join('')}
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label">Descripción</label>
+            <input id="desc-input" type="text" maxlength="60" placeholder="Ej. Compra semanal">
+          </div>
+
+          <div>
+            <label class="field-label">Fecha</label>
+            <input id="date-input" type="date" value="${todayISO()}" max="${todayISO()}">
+          </div>
+
+          <button type="submit" class="submit-btn" style="background:${formType==='ingreso' ? 'var(--emerald)' : 'var(--carmine)'}">
+            Guardar ${formType}
+          </button>
+        </form>
+        ` : ''}
+      </section>
+    `;
+  }
+
+  function renderChart(catMap, catTotal){
+    const rows = CATEGORIES.map(c => ({ cat:c, amt: catMap[c] || 0 })).filter(r => r.amt > 0).sort((a,b) => b.amt - a.amt);
+    if (rows.length === 0){
+      return `
+        <section class="form-section">
+          <h2 class="section-title">Gastos por categoría</h2>
+          <div class="empty-card"><p>Aún no hay gastos este mes.</p></div>
+        </section>
+      `;
+    }
+    return `
+      <section class="form-section">
+        <h2 class="section-title">Gastos por categoría</h2>
+        <div class="card chart-card">
+          ${rows.map(r => {
+            const pct = catTotal > 0 ? Math.round((r.amt / catTotal) * 100) : 0;
+            return `
+            <div>
+              <div class="chart-row-top">
+                <span class="chart-cat">${CATEGORY_ICON[r.cat]} ${r.cat}</span>
+                <span class="chart-amt serif">${money(r.amt, currency)} <span class="pct">(${pct}%)</span></span>
+              </div>
+              <div class="chart-track"><div class="bar-fill" style="width:${pct}%; background:var(--gold)"></div></div>
+            </div>
+          `}).join('')}
+        </div>
+      </section>
+    `;
+  }
+
+  function renderHistory(recent){
+    if (recent.length === 0){
+      return `
+        <section>
+          <h2 class="section-title">Historial</h2>
+          <div class="empty-card"><p>Registra tu primer movimiento arriba.</p></div>
+        </section>
+      `;
+    }
+    return `
+      <section>
+        <h2 class="section-title">Historial reciente</h2>
+        <div class="history-list">
+          ${recent.map(t => {
+            const showUsd = t.currency !== 'USD' && t.rate;
+            return `
+            <div class="card history-item">
+              <div class="history-left">
+                <div class="history-icon" style="background:${t.type==='ingreso' ? 'var(--emerald-soft)' : 'var(--carmine-soft)'}">${CATEGORY_ICON[t.category] || '🗂️'}</div>
+                <div class="history-text">
+                  <p class="history-desc">${t.desc || t.category}</p>
+                  <p class="history-meta">${t.category} · ${formatDate(t.date)}</p>
+                </div>
+              </div>
+              <div class="history-right">
+                <div class="history-amount-wrap">
+                  <p class="history-amount" style="color:${t.type==='ingreso' ? 'var(--emerald)' : 'var(--carmine)'}">${t.type==='ingreso' ? '+' : '−'}${money(t.amount, t.currency)}</p>
+                  ${showUsd ? `<p class="history-usd">≈ ${usd(t.amount / t.rate)}</p>` : ''}
+                </div>
+                <button data-del="${t.id}" aria-label="Eliminar movimiento" class="del-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                </button>
+              </div>
+            </div>
+          `}).join('')}
+        </div>
+      </section>
+    `;
+  }
+
+  function attachHandlers(){
+    const currencyBtn = document.getElementById('currency-btn');
+    if (currencyBtn) currencyBtn.addEventListener('click', (e) => { e.stopPropagation(); currencyOpen = !currencyOpen; render(); if (currencyOpen){ const s = document.getElementById('currency-search'); if (s) s.focus(); } });
+
+    const currencySearchInput = document.getElementById('currency-search');
+    if (currencySearchInput){
+      currencySearchInput.addEventListener('input', (e) => { currencySearch = e.target.value; render(); const s = document.getElementById('currency-search'); if (s){ s.focus(); s.setSelectionRange(s.value.length, s.value.length); } });
+      currencySearchInput.addEventListener('click', (e) => e.stopPropagation());
+    }
+    document.querySelectorAll('.currency-item').forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); changeCurrency(btn.dataset.currency); }));
+
+    const toggleBtn = document.getElementById('toggle-form');
+    if (toggleBtn) toggleBtn.addEventListener('click', () => { formOpen = !formOpen; render(); });
+
+    const toggleRateBtn = document.getElementById('toggle-rate');
+    if (toggleRateBtn) toggleRateBtn.addEventListener('click', () => { rateFormOpen = !rateFormOpen; rateError = null; render(); });
+
+    const liveRateBtn = document.getElementById('live-rate-btn');
+    if (liveRateBtn) liveRateBtn.addEventListener('click', () => { fetchLiveRate(); });
+
+    document.querySelectorAll('.type-btn').forEach(btn => btn.addEventListener('click', () => { formType = btn.dataset.type; render(); }));
+    document.querySelectorAll('.cat-btn').forEach(btn => btn.addEventListener('click', () => { formCategory = btn.dataset.cat; render(); }));
+    document.querySelectorAll('.del-btn').forEach(btn => btn.addEventListener('click', () => deleteTransaction(btn.dataset.del)));
+
+    const form = document.getElementById('tx-form');
+    if (form){
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const amountInput = document.getElementById('amount-input');
+        const descInput = document.getElementById('desc-input');
+        const dateInput = document.getElementById('date-input');
+        const amount = parseFloat(amountInput.value);
+        if (!amount || amount <= 0){
+          amountInput.style.borderColor = 'var(--carmine)';
+          showToast('Ingresa un monto válido', 'error');
+          return;
+        }
+        addTransaction({ type: formType, amount, category: formCategory, desc: descInput.value.trim(), date: dateInput.value || todayISO() });
+        formOpen = false;
+      });
+    }
+
+    const rateForm = document.getElementById('rate-form');
+    if (rateForm){
+      rateForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const rateInput = document.getElementById('rate-input');
+        const dateInput = document.getElementById('rate-date-input');
+        const newRate = parseFloat(rateInput.value);
+        if (!newRate || newRate <= 0){
+          rateInput.style.borderColor = 'var(--carmine)';
+          showToast('Ingresa una tasa válida', 'error');
+          return;
+        }
+        addRate(newRate, dateInput.value || todayISO());
+        rateFormOpen = false;
+      });
+    }
+
+    // Close currency panel when clicking outside
+    document.addEventListener('click', function outsideClick(e){
+      if (currencyOpen && !e.target.closest('.currency-wrap')){
+        currencyOpen = false;
+        render();
+      }
+    }, { once:true });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
